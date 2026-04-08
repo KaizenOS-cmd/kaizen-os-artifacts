@@ -1,0 +1,299 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>HR Audit Checklist · Kaizen OS</title>
+<meta name="description" content="An 8-domain governance health check for HRIS operators. Built by Kaizen OS.">
+<meta property="og:title" content="HR Audit Checklist · Kaizen OS">
+<meta property="og:description" content="Is Your HRIS Environment Actually Under Control? An operator-level governance health check.">
+<meta property="og:type" content="article">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #0E0E0F;
+    --bg-2: #16161A;
+    --line: #1F1F24;
+    --cyan: #00D4FF;
+    --green: #00FF94;
+    --text: #F4F6FA;
+    --muted: #9AA0A6;
+    --serif: 'Libre Baskerville', Georgia, serif;
+    --sans: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Arial, sans-serif;
+  }
+  * { box-sizing: border-box; }
+  html, body { margin: 0; padding: 0; background: var(--bg); color: var(--text); font-family: var(--sans); -webkit-font-smoothing: antialiased; }
+  body {
+    background-image:
+      radial-gradient(circle at 15% 10%, rgba(0,212,255,0.06), transparent 40%),
+      radial-gradient(circle at 85% 90%, rgba(0,255,148,0.05), transparent 45%),
+      linear-gradient(rgba(255,255,255,0.018) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(255,255,255,0.018) 1px, transparent 1px);
+    background-size: auto, auto, 48px 48px, 48px 48px;
+  }
+  .wrap { max-width: 920px; margin: 0 auto; padding: 56px 28px 96px; }
+  header.brand { display: flex; align-items: center; justify-content: space-between; padding-bottom: 28px; border-bottom: 1px solid var(--line); margin-bottom: 56px; }
+  .logo { font-family: var(--serif); font-weight: 700; font-size: 18px; letter-spacing: 0.02em; }
+  .logo span { color: var(--cyan); }
+  .nav-link { font-size: 13px; color: var(--muted); text-decoration: none; letter-spacing: 0.04em; text-transform: uppercase; }
+  .nav-link:hover { color: var(--cyan); }
+
+  .cover { text-align: left; padding: 24px 0 48px; }
+  .eyebrow { display: inline-block; font-size: 12px; letter-spacing: 0.18em; text-transform: uppercase; color: var(--cyan); padding: 6px 12px; border: 1px solid var(--cyan); border-radius: 999px; margin-bottom: 28px; }
+  h1 { font-family: var(--serif); font-weight: 700; font-size: clamp(36px, 5.6vw, 64px); line-height: 1.05; margin: 0 0 18px; letter-spacing: -0.01em; }
+  .subhead { font-size: clamp(18px, 2vw, 22px); color: var(--cyan); font-weight: 600; margin: 0 0 14px; }
+  .tagline { font-size: 16px; color: var(--muted); max-width: 640px; line-height: 1.6; }
+  .cover-rule { height: 2px; width: 80px; background: var(--cyan); margin-top: 36px; }
+
+  section { margin: 64px 0; }
+  h2 { font-family: var(--serif); font-weight: 700; font-size: 32px; margin: 0 0 8px; line-height: 1.15; }
+  h3 { font-family: var(--sans); font-weight: 600; font-size: 18px; margin: 24px 0 10px; }
+  p { font-size: 16px; line-height: 1.7; color: var(--text); margin: 0 0 14px; }
+  p.muted { color: var(--muted); }
+
+  .pill { display: inline-block; font-size: 11px; letter-spacing: 0.18em; text-transform: uppercase; padding: 6px 12px; border-radius: 4px; font-weight: 600; margin-bottom: 14px; }
+  .pill-cyan { background: var(--cyan); color: #0E0E0F; }
+  .pill-green { background: var(--green); color: #0E0E0F; }
+
+  .legend { display: flex; gap: 16px; flex-wrap: wrap; padding: 18px 22px; border: 1px solid var(--cyan); border-radius: 8px; margin: 24px 0; background: rgba(0,212,255,0.04); }
+  .legend div { font-size: 14px; }
+  .legend strong { color: var(--cyan); }
+
+  blockquote.pull { font-family: var(--serif); font-style: italic; font-size: 20px; line-height: 1.5; color: var(--text); border-left: 3px solid var(--cyan); padding: 8px 0 8px 22px; margin: 28px 0; max-width: 680px; }
+
+  .checklist { width: 100%; border-collapse: collapse; margin: 18px 0 8px; border: 1px solid var(--line); border-radius: 8px; overflow: hidden; }
+  .checklist th, .checklist td { text-align: left; padding: 14px 16px; border-bottom: 1px solid var(--line); font-size: 15px; vertical-align: top; }
+  .checklist th { background: var(--bg-2); color: var(--cyan); font-weight: 600; font-size: 12px; letter-spacing: 0.12em; text-transform: uppercase; }
+  .checklist tr:last-child td { border-bottom: none; }
+  .checklist td.num { color: var(--cyan); font-weight: 600; width: 56px; font-variant-numeric: tabular-nums; }
+  .checklist td.status { text-align: center; width: 130px; color: var(--muted); font-size: 18px; letter-spacing: 6px; }
+
+  .score-row { display: flex; align-items: center; justify-content: space-between; gap: 20px; margin-top: 18px; flex-wrap: wrap; }
+  .score-box { display: inline-flex; align-items: center; gap: 10px; padding: 12px 20px; border: 2px solid var(--green); border-radius: 6px; font-weight: 700; font-size: 16px; color: var(--green); letter-spacing: 0.04em; }
+  .insight { font-size: 14px; color: var(--text); border-left: 3px solid var(--cyan); padding-left: 14px; max-width: 520px; }
+  .insight em { color: var(--muted); font-style: normal; }
+
+  .quickwin { padding: 32px; border: 1px solid var(--line); border-radius: 12px; background: linear-gradient(180deg, rgba(0,255,148,0.04), rgba(0,255,148,0.01)); margin: 28px 0; }
+  .quickwin h2 { margin-top: 4px; }
+  .quickwin .fix { color: var(--cyan); font-weight: 600; font-size: 16px; margin: 4px 0 18px; }
+  .quickwin ol { padding-left: 20px; margin: 14px 0; }
+  .quickwin ol li { font-size: 15px; line-height: 1.7; margin-bottom: 6px; }
+  .chips { display: flex; gap: 12px; flex-wrap: wrap; margin-top: 22px; }
+  .chip { display: inline-flex; align-items: center; gap: 8px; padding: 10px 16px; border: 1px solid var(--green); border-radius: 999px; font-size: 13px; color: var(--green); font-weight: 500; }
+
+  .tier-grid { display: grid; gap: 14px; margin: 24px 0; }
+  .tier { padding: 20px 24px; border-radius: 10px; border: 1px solid var(--line); display: flex; gap: 18px; align-items: flex-start; }
+  .tier .dot { width: 14px; height: 14px; border-radius: 50%; margin-top: 6px; flex: 0 0 auto; }
+  .tier .body { flex: 1; }
+  .tier strong { display: block; font-size: 15px; margin-bottom: 4px; color: var(--text); }
+  .tier span { font-size: 14px; color: var(--muted); line-height: 1.6; }
+  .tier-green .dot { background: #00FF94; box-shadow: 0 0 12px rgba(0,255,148,0.5); }
+  .tier-amber .dot { background: #FFB020; box-shadow: 0 0 12px rgba(255,176,32,0.5); }
+  .tier-red .dot { background: #FF4D6A; box-shadow: 0 0 12px rgba(255,77,106,0.5); }
+
+  .cta { padding: 40px; border: 2px solid var(--green); border-radius: 14px; margin: 48px 0 24px; text-align: left; background: radial-gradient(circle at top right, rgba(0,255,148,0.08), transparent 60%); }
+  .cta h2 { font-size: 26px; margin-bottom: 8px; }
+  .cta p { color: var(--text); margin-bottom: 22px; max-width: 600px; }
+  .cta a.button { display: inline-block; background: var(--green); color: #0E0E0F; padding: 14px 26px; border-radius: 6px; text-decoration: none; font-weight: 700; font-size: 14px; letter-spacing: 0.08em; text-transform: uppercase; transition: transform .15s ease; }
+  .cta a.button:hover { transform: translateY(-1px); }
+
+  footer.brand-foot { margin-top: 80px; padding-top: 36px; border-top: 1px solid var(--line); text-align: center; }
+  footer.brand-foot .logo { font-size: 22px; }
+  footer.brand-foot .tag { color: var(--cyan); font-weight: 600; margin: 14px 0 6px; }
+  footer.brand-foot .meta { color: var(--muted); font-size: 13px; }
+  footer.brand-foot a { color: var(--green); text-decoration: none; }
+
+  @media (max-width: 640px) {
+    .wrap { padding: 36px 18px 64px; }
+    section { margin: 48px 0; }
+    .quickwin, .cta { padding: 24px; }
+    .checklist td.status { width: 100px; letter-spacing: 4px; }
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <header class="brand">
+    <div class="logo">KAIZEN<span>OS</span></div>
+    <a class="nav-link" href="https://kaizenos.beehiiv.com/subscribe">Join the newsletter →</a>
+  </header>
+
+  <section class="cover">
+    <span class="eyebrow">Tier 1 · Free Lead Magnet</span>
+    <h1>HR Audit Checklist</h1>
+    <p class="subhead">Is Your HRIS Environment Actually Under Control?</p>
+    <p class="tagline">An operator-level governance health check for HRIS professionals, HR Directors, and Shared Services leaders. Run this before your next audit, implementation, or escalation does it for you.</p>
+    <div class="cover-rule"></div>
+  </section>
+
+  <section>
+    <h2>How to Use This Checklist</h2>
+    <p>This is the operating health check every HRIS team should run before touching a single configuration. Most HR Tech problems are not tool problems. They are governance gaps that compound silently.</p>
+    <p>Score each item honestly. Count your ❌ marks. The gaps you find are the priorities you need to fix — before your next audit, leadership review, or system expansion finds them for you.</p>
+
+    <div class="legend">
+      <div><strong>✅</strong> In place</div>
+      <div><strong>⚠️</strong> Partial</div>
+      <div><strong>❌</strong> Missing</div>
+    </div>
+
+    <blockquote class="pull">"Most HR Tech problems are not tool problems. They are governance gaps that compound silently."</blockquote>
+  </section>
+
+  <section>
+    <span class="pill pill-cyan">Section 01</span>
+    <h2>Demand Governance</h2>
+    <p class="muted">7 checks · How requests enter your system and how they get prioritized.</p>
+
+    <table class="checklist">
+      <thead><tr><th>#</th><th>Check</th><th>Status</th></tr></thead>
+      <tbody>
+        <tr><td class="num">1.1</td><td>A single documented intake channel exists for all HRIS requests.</td><td class="status">✅ ⚠️ ❌</td></tr>
+        <tr><td class="num">1.2</td><td>Every request is logged with a unique ID before any work begins.</td><td class="status">✅ ⚠️ ❌</td></tr>
+        <tr><td class="num">1.3</td><td>A triage process exists to categorise requests by type.</td><td class="status">✅ ⚠️ ❌</td></tr>
+        <tr><td class="num">1.4</td><td>Prioritisation criteria are documented and consistently applied.</td><td class="status">✅ ⚠️ ❌</td></tr>
+        <tr><td class="num">1.5</td><td>A visible backlog exists with status, owner, and effort for every open item.</td><td class="status">✅ ⚠️ ❌</td></tr>
+        <tr><td class="num">1.6</td><td>SLAs are defined and communicated to stakeholders.</td><td class="status">✅ ⚠️ ❌</td></tr>
+        <tr><td class="num">1.7</td><td>Demand volume is reviewed monthly to identify patterns and capacity gaps.</td><td class="status">✅ ⚠️ ❌</td></tr>
+      </tbody>
+    </table>
+
+    <div class="score-row">
+      <div class="score-box">SCORE __ / 7</div>
+      <div class="insight">3 or more ❌ — your team is operating reactively. Every change is a fire drill.</div>
+    </div>
+  </section>
+
+  <section>
+    <span class="pill pill-cyan">Section 02</span>
+    <h2>Ownership & Accountability</h2>
+    <p class="muted">7 checks · Who owns what — and who fixes it when something breaks.</p>
+
+    <table class="checklist">
+      <thead><tr><th>#</th><th>Check</th><th>Status</th></tr></thead>
+      <tbody>
+        <tr><td class="num">2.1</td><td>A named HRIS owner exists with documented authority over governance decisions.</td><td class="status">✅ ⚠️ ❌</td></tr>
+        <tr><td class="num">2.2</td><td>The boundary between HR ownership and IT ownership is explicitly documented.</td><td class="status">✅ ⚠️ ❌</td></tr>
+        <tr><td class="num">2.3</td><td>A RACI exists for all major HRIS processes.</td><td class="status">✅ ⚠️ ❌</td></tr>
+        <tr><td class="num">2.4</td><td>Vendor responsibilities are scoped in contracts and reviewed annually.</td><td class="status">✅ ⚠️ ❌</td></tr>
+        <tr><td class="num">2.5</td><td>Every active integration has a named internal owner.</td><td class="status">✅ ⚠️ ❌</td></tr>
+        <tr><td class="num">2.6</td><td>A decision log exists capturing who approved major changes and why.</td><td class="status">✅ ⚠️ ❌</td></tr>
+        <tr><td class="num">2.7</td><td>Ownership is reviewed when team members leave or roles change.</td><td class="status">✅ ⚠️ ❌</td></tr>
+      </tbody>
+    </table>
+
+    <div class="score-row">
+      <div class="score-box">SCORE __ / 7</div>
+      <div class="insight">3 or more ❌ — accountability gaps. When something breaks, no one owns fixing it.</div>
+    </div>
+  </section>
+
+  <section>
+    <span class="pill pill-green">Quick Wins</span>
+    <h2>3 Governance Fixes You Can Ship This Week</h2>
+    <p class="muted">You don't need a transformation to start fixing this. You need three decisions.</p>
+
+    <div class="quickwin">
+      <span class="pill pill-green">Quick Win 01</span>
+      <h2>Create a Single Intake Point</h2>
+      <p class="fix">The fix: designate one channel as the official HRIS request intake. Everything else gets redirected to it.</p>
+      <h3>How to do it in 48 hours</h3>
+      <ol>
+        <li>Pick your tool: JSM, ServiceNow, a Notion form, or even a Google Form.</li>
+        <li>Create one request category: <em>HRIS Change Request</em>.</li>
+        <li>Set an auto-reply on your inbox: <em>"All HRIS requests must be submitted via the intake form. Requests received here will not be actioned."</em></li>
+        <li>Communicate it to HR, Payroll, and IT in one message.</li>
+      </ol>
+      <p><strong>Why it works:</strong> 80% of backlog chaos comes from ungoverned intake. One channel eliminates the noise immediately.</p>
+      <div class="chips">
+        <div class="chip">⏱️ 2–3 hours to implement</div>
+        <div class="chip">📈 Immediate reduction in reactive work</div>
+      </div>
+    </div>
+
+    <div class="quickwin">
+      <span class="pill pill-green">Quick Win 02</span>
+      <h2>Name an Owner for Every Active Integration</h2>
+      <p class="fix">The fix: pull a list of every active HRIS integration. Assign a named human owner to each one today.</p>
+      <h3>How to do it in 48 hours</h3>
+      <ol>
+        <li>Export your active integration list from your HRIS (Workday, JSM, etc.).</li>
+        <li>Create a simple table: Integration | System | Owner | Last Reviewed.</li>
+        <li>Assign an owner to every row — not a team, a person.</li>
+        <li>Set a calendar reminder to review the list quarterly.</li>
+      </ol>
+      <p><strong>Why it works:</strong> Integrations are your highest-risk failure points. When they break with no owner, the incident becomes everyone's emergency and no one's responsibility.</p>
+      <div class="chips">
+        <div class="chip">⏱️ 1–2 hours to implement</div>
+        <div class="chip">📈 Eliminates ownership ambiguity on your riskiest dependencies</div>
+      </div>
+    </div>
+
+    <div class="quickwin">
+      <span class="pill pill-green">Quick Win 03</span>
+      <h2>Log the Next 5 Configuration Changes Before They Happen</h2>
+      <p class="fix">The fix: before your next 5 HRIS changes go live, document them in a decision log. Build the habit now.</p>
+      <h3>Your decision log needs 5 fields</h3>
+      <ol>
+        <li>Change description</li>
+        <li>Business reason</li>
+        <li>Who requested it</li>
+        <li>Who approved it</li>
+        <li>Date implemented</li>
+      </ol>
+      <p><strong>Why it works:</strong> Configuration drift is the silent killer of HRIS integrity. A decision log gives you an audit trail, reduces rework, and protects you when something breaks.</p>
+      <div class="chips">
+        <div class="chip">⏱️ 30 minutes to set up</div>
+        <div class="chip">📈 Instant audit readiness on every change</div>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <span class="pill pill-cyan">Your Score</span>
+    <h2>What Your Result Means</h2>
+    <p class="muted">Add up your ❌ marks across both sections. Find your tier below.</p>
+
+    <div class="tier-grid">
+      <div class="tier tier-green">
+        <div class="dot"></div>
+        <div class="body">
+          <strong>0–3 ❌ &nbsp;·&nbsp; Solid foundation</strong>
+          <span>Your governance is healthier than most. Use the HRIS Gap Audit Template to go deeper on the domains we didn't cover here.</span>
+        </div>
+      </div>
+      <div class="tier tier-amber">
+        <div class="dot"></div>
+        <div class="body">
+          <strong>4–8 ❌ &nbsp;·&nbsp; Governance gaps costing you time</strong>
+          <span>You're carrying meaningful risk and reactive work. Start with the 3 Quick Wins above this week.</span>
+        </div>
+      </div>
+      <div class="tier tier-red">
+        <div class="dot"></div>
+        <div class="body">
+          <strong>9+ ❌ &nbsp;·&nbsp; Operating model needs a rebuild</strong>
+          <span>The system isn't your problem — the operating model underneath it is. The HRIS Audit OS Playbook is your roadmap.</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="cta">
+      <h2>Want the Full Audit Framework?</h2>
+      <p>The HRIS Audit OS Playbook covers all 8 governance domains in depth — with templates, scoring models, and a remediation plan you can run with a small team.</p>
+      <a class="button" href="https://kaizenos.beehiiv.com/subscribe">Join Kaizen OS →</a>
+    </div>
+  </section>
+
+  <footer class="brand-foot">
+    <div class="logo">KAIZEN<span style="color:var(--cyan)">OS</span></div>
+    <div class="tag">Turn your job into a system.</div>
+    <div class="meta">Weekly systems for HRIS operators · <a href="https://kaizenos.beehiiv.com/subscribe">kaizenos.beehiiv.com</a></div>
+  </footer>
+
+</div>
+</body>
+</html>
